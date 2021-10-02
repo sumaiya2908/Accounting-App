@@ -1,0 +1,28 @@
+{% extends "templates/web.html" %} {% block page_content %}
+<div
+	class="d-flex bg-dark justify-content-between align-items-center p-3 rounded"
+>
+	<h2 class="text-light m-0" style="height: 40px">Gada Electronics</h2>
+
+	<a href="/cart" type="button" class="btn btn-secondary cart">
+		<img
+			src="https://img.icons8.com/material-outlined/24/000000/shopping-cart--v1.png"
+		/>
+		<span
+			class="badge badge-warning"
+			style="top: -10px; left: -5px; padding: 3px 5px"
+			>0</span
+		>
+	</a>
+</div>
+<div class="cart-container container p-5">
+	<div class="row w-100">
+		<span class="col-sm font-weight-bold">Product</span>
+		<span class="col-sm font-weight-bold"> Price </span>
+		<span class="col-sm font-weight-bold"> Quantity</span>
+		<span class="col-sm font-weight-bold"> Total Price </span>
+	</div>
+	<hr />
+</div>
+
+{% endblock %}

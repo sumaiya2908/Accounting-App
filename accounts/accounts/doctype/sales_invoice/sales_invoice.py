@@ -3,6 +3,7 @@
 
 import frappe
 from frappe.model.document import Document
+from frappe.utils import flt
 import json
 from ..gl_entry.gl_entry import create_gl_entry
 
@@ -15,7 +16,7 @@ class SalesInvoice(Document):
 
     def set_total_amount(self):
         self.amount = 0
-        self.amount = sum(item.amount for item in self.item)
+        self.amount = sum(flt(item.amount, 3) for item in self.item)
         self.total_quantity = 0
         self.total_quantity = sum(item.quantity for item in self.item)
 

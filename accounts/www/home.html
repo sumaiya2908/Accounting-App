@@ -1,0 +1,47 @@
+{% extends "templates/web.html" %} {% block page_content %}
+<div
+	class="d-flex bg-dark justify-content-between align-items-center p-3 rounded"
+>
+	<h2 class="text-light m-0" style="height: 40px">Gada Electronics</h2>
+
+	<a href="/cart" type="button" class="btn btn-secondary cart">
+		<img
+			src="https://img.icons8.com/material-outlined/24/000000/shopping-cart--v1.png"
+		/>
+		<span class="badge badge-warning" style ="top: -10px; left:-5px; padding: 3px 5px;">0</span>
+	</a>
+</div>
+
+{% set products = frappe.get_all('Item', fields = ['item_name','item_image',
+'item_brand', 'item_price'])%}
+
+<div class="mt-5">
+	<div class="mb-5">Showing all products available in the shop...</div>
+	{% for product in products %}
+	<div class="d-flex pb-2">
+		<img
+			src="{{product.item_image}}"
+			class="rounded img-fluid"
+			style="height: 150px; width: 200px; object-fit: contain"
+		/>
+		<div class="d-flex flex-column">
+			<span class="mb-2 font-weight-bolder text-lg">{{product.item_name}}</span>
+			<span class="mb-2 font-weight-normal font-italic"
+				>{{product.item_brand}}</span
+			>
+			<span class="mb-3">₹{{product.item_price}}</span>
+			<button
+				type="button"
+				class="btn btn-dark add-to-cart"
+				data-name="{{product.item_name}}"
+				data-price="{{product.item_price}}"
+			>
+				Add to Cart
+			</button>
+		</div>
+	</div>
+	<hr />
+	{% endfor %}
+</div>
+
+{% endblock %}
