@@ -5,9 +5,11 @@ import frappe
 from frappe.model.document import Document
 
 
+
+
 class JournalEntry(Document):
     def validate(self):
-        self.set_total_debit_credit()
+        set_total_debit_credit(self)
 
         if len(self.account_entries) < 2:
             frappe.throw("Entry is missing ! ")
@@ -20,10 +22,10 @@ class JournalEntry(Document):
                     "You cannot credit and debit same account at the same time")
 
     def on_submit(self):
-        self.create_gl_Entry()
+        create_gl_entry(self)
 
     def on_cancel(self):
-        self.create_gl_entry(True)
+        create_gl_entry(self, True)
 
 
 def create_gl_entry(self, is_reverse=False):
@@ -40,8 +42,9 @@ def create_gl_entry(self, is_reverse=False):
     credit_accounts = ', '.join(str(account) for account in credit_accounts)
 
     for entry in self.account_entries:
+        debit, credit = entry.debit, entry.credit
         if is_reverse:
-            pass
+            debit, credit = entry.credit, entry.debit
 
         if entry.debit == 0:
             against_account = debit_accounts
@@ -53,12 +56,13 @@ def create_gl_entry(self, is_reverse=False):
             "posting_date": self.posting_date,
             "company": self.company,
             "account": entry.account,
-            "credit": entry.credit,
-            "debit": entry.debit,
+            "credit": credit,
+            "debit": debit,
             "against_account": against_account,
             "voucher_type": "Journal Entry",
             "voucher_no": self.name,
         }).submit()
+
 
 def set_total_debit_credit(self):
         self.total_debit = 0

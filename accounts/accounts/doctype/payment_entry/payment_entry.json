@@ -137,14 +137,13 @@
    "fieldname": "amount",
    "fieldtype": "Currency",
    "label": "Amount",
-   "read_only": 1,
    "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2021-10-02 20:20:23.267857",
+ "modified": "2021-10-02 22:58:17.237487",
  "modified_by": "Administrator",
  "module": "Accounts",
  "name": "Payment Entry",
